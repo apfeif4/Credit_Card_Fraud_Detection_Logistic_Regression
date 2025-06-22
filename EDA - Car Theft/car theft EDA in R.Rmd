@@ -1,0 +1,245 @@
+---
+title: "car thefts"
+author: "Andrew Pfeifer"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("foreign")
+library("mlogit")
+library(dplyr)
+library(readxl)
+library(ggplot2)
+library(gridExtra)
+library(tidyverse)
+
+# Import the data.
+theftMap <- read.csv('/Users/andrewpfeifer/Documents/DSC 640/Weeks 5&6/theftmaps.csv',)
+
+khMilDat <- read.csv('/Users/andrewpfeifer/Documents/DSC 640/Weeks 5&6/KiaHyundaiMilwaukeeData.csv',
+                     header = TRUE, stringsAsFactors=FALSE)
+
+khThefts <- read.csv('/Users/andrewpfeifer/Documents/DSC 640/Weeks 5&6/kiaHyundaiThefts.csv',
+                     header = TRUE, stringsAsFactors=FALSE)
+
+motherboard <- read_excel("/Users/andrewpfeifer/Documents/DSC 640/Weeks 5&6/Motherboard VICE News Kia Hyundai Theft Data.xlsx")
+
+mother <- read_excel("/Users/andrewpfeifer/Documents/DSC 640/Weeks 5&6/Copy of Motherboard VICE News Kia Hyundai Theft Data.xlsx")
+
+motherMod <- read_excel("/Users/andrewpfeifer/Documents/DSC 640/Weeks 5&6/modifiedMother.xlsx")
+
+
+```
+
+```{r}
+
+# Check that the data loaded in properly.
+head(theftMap)
+```
+```{r}
+# Check that the data loaded in properly.
+head(khMilDat)
+```
+```{r}
+# Check that the data loaded in properly.
+head(khThefts)
+
+```
+```{r}
+# Check that the data loaded in properly.
+head(motherboard)
+```
+
+```{r}
+# Check for missing values.
+colSums(is.na(theftMap))
+
+```
+
+```{r}
+# Check for missing values.
+colSums(is.na(khMilDat))
+```
+
+```{r}
+# Check for missing values.
+colSums(is.na(khThefts))
+
+# Add DC as a state for Washington DC.
+khThefts[is.na(khThefts)] <- "DC"
+
+# Make sure all the missing values are gone. 
+colSums(is.na(khThefts))
+```
+
+```{r}
+# Check for missing values.
+colSums(is.na(motherboard))
+
+```
+
+
+```{r} 
+# Pie chart.
+
+# Check the data types.
+print(typeof(khMilDat$countOtherThefts))
+
+# Obtain the some of the stolen car brands. 
+other <- sum(khMilDat$countOtherThefts)
+khcars <- sum(khMilDat$countKiaHyundaiThefts)
+
+# Create a new dataframe with the total stolen brands. 
+milDat <- data.frame(
+    types = c("Kia and Hyundai", "Other") , 
+    total= c(khcars, other),
+    stringsAsFactors = FALSE)
+
+# Make a pie chart.
+pie(milDat$total, milDat$types, main = "Milwaukee Car thefts", col = rainbow(length(milDat$types)))
+
+```
+
+```{r}
+# Donut plot.
+
+# Group the data by state and obtain the sum of the stolen cars per state.
+sumKHthfts <- khThefts %>% group_by(state) %>% summarise(totalThefts = sum(countKiaHyundaiThefts)) 
+
+# Check that this was completed properly.
+head(sumKHthfts)
+
+
+# Make a new column and compute the percentages of stolen cars.
+sumKHthfts$fraction = sumKHthfts$totalThefts / sum(sumKHthfts$totalThefts)
+
+# calculate the sum of the column of percentages.
+sumKHthfts$ymax = cumsum(sumKHthfts$fraction)
+
+# Compute the minimum for the percentages.
+sumKHthfts$ymin = c(0, head(sumKHthfts$ymax, n=-1))
+
+# create a donut plot.
+donut<- ggplot(sumKHthfts, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=state)) +
+  geom_rect() + coord_polar(theta="y", start = 0, direction = 1) + xlim(c(2, 4), clip = "on") + theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+
+# Add a title to the plot.
+donutPlt <- donut + labs(title = "Hyundai and Kia Thefts \nMajor Reporting States")
+
+# Save the plot.
+ggsave("donutplt.png", plot = donutPlt, width = 6, height = 4, units = "in")
+```
+
+
+
+```{r}
+# area
+
+# Creat an area plot.
+areap <- ggplot(motherMod, aes(x=Date, y=`Kia/Hyundais_total`)) +
+  geom_area() + theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(color = "black")) + scale_y_continuous(expand = c(0, 0), limits = c(0, NA))
+
+# Add title and labels to the plot.
+areaplt <- areap + labs(title = "Hyundai and Kia Thefts \n5 Year Span ", x = "Year", y = "Hyundai/ Kia Thefts")
+
+# Save the plot.
+ggsave("areaPlot.png", plot = areaplt, width = 6, height = 4, units = "in")
+```
+
+```{r}
+#Stacked bar
+
+# Remove 2022 data due to ouput issues and readability.
+khTheftsNo2022 <- khThefts %>% filter(!(year == 2022))
+
+# Plot the stacked bar.
+stacks <- ggplot(khThefts, aes(fill=state, y=countKiaHyundaiThefts, x=year, bty = "n")) + geom_col(position="stack") + theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(color = "black"))  + scale_y_continuous(expand = c(0, 0), limits = c(0, NA))
+
+# Add title and labels.
+stacked <- stacks + labs(title = "Count of Hyundai/Kia Thefts \nBy Reported States ", x = "Year", y = "Hyundai/ Kia Thefts")
+
+# save the plot.
+ggsave("stackBar.png", plot = stacked, width = 6, height = 4, units = "in")
+```
+
+
+
+```{r}
+
+#Step Plot: Theft Map
+# make a list of columns to keep from the data,
+keep <- c("countCarThefts2019", "countCarThefts2020", 
+          "countCarThefts2021", "countCarThefts2022")
+
+# Drop all columns that aren't on the list.
+yearlytheft <- theftMap[keep]
+
+# Convert all data to numeric.
+yearlytheft$countCarThefts2019 <- as.numeric(as.character(yearlytheft$countCarThefts2019))
+yearlytheft$countCarThefts2020 <- as.numeric(as.character(yearlytheft$countCarThefts2020))
+yearlytheft$countCarThefts2021 <- as.numeric(as.character(yearlytheft$countCarThefts2021))
+yearlytheft$countCarThefts2022 <- as.numeric(as.character(yearlytheft$countCarThefts2022))
+
+# Check for missing values
+colSums(is.na(yearlytheft))
+
+# for each column fill in missing values with the mean.
+yearlytheft$countCarThefts2019[is.na(yearlytheft$countCarThefts2019)] <- mean(yearlytheft$countCarThefts2019, na.rm = TRUE)
+
+# for each column fill in missing values with the mean.
+yearlytheft$countCarThefts2020[is.na(yearlytheft$countCarThefts2020)] <- mean(yearlytheft$countCarThefts2020, na.rm = TRUE)
+
+# for each column fill in missing values with the mean.
+yearlytheft$countCarThefts2021[is.na(yearlytheft$countCarThefts2021)] <- mean(yearlytheft$countCarThefts2021, na.rm = TRUE)
+
+# for each column fill in missing values with the mean.
+yearlytheft$countCarThefts2022[is.na(yearlytheft$countCarThefts2022)] <- mean(yearlytheft$countCarThefts2022, na.rm = TRUE)
+
+# Remane the columns
+colnames(yearlytheft) <- c("2019", "2020", "2021", "2022")
+
+# Make a new dataframe for the yealy sum.
+theft.data <- data.frame(
+    years = c(2019, 2020, 2021, 2022) , 
+    theft = c(312626, 361435, 399990, 467331),
+    stringsAsFactors = FALSE)
+
+# Create a step plot.
+step <- ggplot(theft.data, aes(x = years, y = (theft/1000), bty = "n")) + geom_step(color="blueviolet", direction = "hv") + theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(color = "black")) + scale_y_continuous(expand = c(0, 0), limits = c(0, NA))
+
+# Add title and labels.
+stepPlt <- step + labs(title = "Total Car Thefts \nCountry Wide ", x = "Year", y = "Car Thefts in Thousands")
+
+# Save the plot.
+ggsave("stepplt.png", plot = stepPlt, width = 6, height = 4, units = "in")
+```
+
+```{r}
+#Scatter Plot: Motherboard Data
+
+# Caluclate the correlation between all stolen cars and ghe target group.
+correlation <- cor(motherMod$`Kia/Hyundais_total`, motherMod$total)
+
+# Print the correlation.
+print(correlation)
+
+# Reuce the sixe of the total count for the visualization.
+motherMod$total <- as.numeric(motherMod$total) / 1000
+
+# Make the dot plot with line of best fit,
+corplot <-  ggplot(motherMod, aes(x = `Kia/Hyundais_total` , y = total, bty = "n")) + geom_point() + geom_smooth(method = "lm", color = "red") + annotate("text", x=30000, y=99, label="Correlation = 0.54", size=6) + scale_y_continuous(expand = c(0, 0), limits = c(0, NA)) + scale_x_continuous(expand = c(0, 0), limits = c(0, NA))
+
+# Add the them to the plot for the axis lines.
+finalplt <- corplot + theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(color = "black"))
+
+# Add the title and the labels to the plot.
+dotplot <- finalplt + labs(title = "Kia/Hyundai and All Car thefts \nCountry Wide", x = "Kia/Hyundai Thefts", y = "All car thefts in Thousands")
+
+# Save the plot.
+ggsave("dotplt.png", plot = dotplot, width = 6, height = 4, units = "in")
+```
+
