@@ -14,50 +14,17 @@ The goal of this project is to expore Netflix data to find something intersting 
 * Tableau
 
 ## Project Description
+The sources of data for this project can be found on Kaggle and have been added to this Repo. This is an  exploratory data analysis with some of the folloing questions to expore: Do any correlatinos exist in the data? What story are they trying to tell? What is watched more, movies or TV shows? What is the average run time watched? What titles make up this watch time? Are there any differences for what is watched more among different countries?
 
-(Provide more detailed overview of the project.  Talk a bit about your data sources and what questions and hypothesis you are exploring. What specific data analysis/visualization and modelling work are you using to solve the problem? What blockers and challenges are you facing?  Feel free to number or bullet point things here)
 
 ## Needs of this project
-
-- frontend developers
-- data exploration/descriptive statistics
-- data processing/cleaning
+- data exploration
 - statistical modeling
 - writeup/reporting
-- etc. (be as specific as possible)
 
 ## Getting Started
 
-1. Clone this repo (for help see this [tutorial](https://help.github.com/articles/cloning-a-repository/)).
-2. Raw Data is being kept [here](Repo folder containing raw data) within this repo.
-
-    *If using offline data mention that and how they may obtain the data from the froup)*
-    
-3. Data processing/transformation scripts are being kept [here](Repo folder containing data processing scripts/notebooks)
-4. etc...
-
-*If your project is well underway and setup is fairly complicated (ie. requires installation of many packages) create another "setup.md" file and link to it here*  
-
-5. Follow setup [instructions](Link to file)
-
-## Featured Notebooks/Analysis/Deliverables
-* [Notebook/Markdown/Slide Deck Title](link)
-* [Notebook/Markdown/Slide DeckTitle](link)
-* [Blog Post](link)
-
-
-## Contributing DSWG Members
-
-**Team Leads (Contacts) : [Full Name](https://github.com/[github handle])(@slackHandle)**
-
-#### Other Members:
-
-|Name     |  Slack Handle   | 
-|---------|-----------------|
-|[Full Name](https://github.com/[github handle])| @johnDoe        |
-|[Full Name](https://github.com/[github handle]) |     @janeDoe    |
-
-## Contact
-* If you haven't joined the SF Brigade Slack, [you can do that here](http://c4sf.me/slack).  
-* Our slack channel is `#datasci-projectname`
-* Feel free to contact team leads with any questions or if you are interested in contributing!
+1. Clone this repo for the data and the Tableau workbook.
+2. Raw Data is being kept in the data folder within this repo.
+3. The visualizations are within the netflixExploration.twb workbook
+4. And example presentation is the Netflix viewership.pptx file and the example write is is the Netflix viewership.docx file.
