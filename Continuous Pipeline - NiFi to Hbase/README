@@ -36,10 +36,6 @@ The Data that is used for this project is the Heart Attack data set for the pred
 
 ## Getting Started
 
-1. The NiFi Flow Can be found here: https://github.com/apfeif4/apfeif4.github.io/blob/main/Continuous%20Pipeline%20-%20NiFi%20to%20Hbase/NiFi_Flow.json
-2. Raw Data is being kept [here](Repo folder containing raw data) within this repo.
-
-    *If using offline data mention that and how they may obtain the data from the froup)*
-    
-3. Data processing/transformation scripts are being kept [here](Repo folder containing data processing scripts/notebooks)
-4. etc...
+1. The NiFi Flow that has the build for the processor group is the NiFi_Flow.json
+2. The data that was used can be found in the data folder within this Repo.
+3. Screen shots for the pipeline can be found in the write up document or you can follow along from the full terminal text.
