@@ -37,5 +37,5 @@ The Data that is used for this project is the Heart Attack data set for the pred
 ## Getting Started
 
 1. The NiFi Flow that has the build for the processor group is the NiFi_Flow.json
-2. The data that was used can be found in the data folder within this Repo.
+2. The data that was used can be found in the data folder within this Repo. To Save stime from converting this to Json, I've included the medicaldata.json file in the main repo.
 3. Screen shots for the pipeline can be found in the write up document or you can follow along from the full terminal text.
