@@ -1,4 +1,4 @@
-Continuous Pipeline - NiFi Through Hbase
+##Continuous Pipeline - NiFi Through Hbase
 
 This project Is meant to show the flow of data from NiFi -> HDFS -> Hive -> PySpark -> Hbase.
 
