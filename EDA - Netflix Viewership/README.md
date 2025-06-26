@@ -7,23 +7,14 @@ This project is an example of data exploration in Tableau.
 The goal of this project is to expore Netflix data to find something intersting and tell a story about it. The data comes from three different datasets that will be explored to make connections. In the end a powerpoint presentation is created to give the stakeholders/ Management a call to action for a change that can be made to increase profits.
 
 ### Methods Used
-* Inferential Statistics
-* Machine Learning
 * Data Visualization
-* Predictive Modeling
-* etc.
+* Data Exploration
 
 ### Technologies
-* R 
-* Python
-* D3
-* PostGres, MySql
-* Pandas, jupyter
-* HTML
-* JavaScript
-* etc. 
+* Tableau
 
 ## Project Description
+
 (Provide more detailed overview of the project.  Talk a bit about your data sources and what questions and hypothesis you are exploring. What specific data analysis/visualization and modelling work are you using to solve the problem? What blockers and challenges are you facing?  Feel free to number or bullet point things here)
 
 ## Needs of this project
