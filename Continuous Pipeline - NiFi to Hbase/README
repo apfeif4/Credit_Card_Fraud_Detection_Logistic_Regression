@@ -1,16 +1,11 @@
 Continuous Pipeline - NiFi Through Hbase
-This project is a part of the [Data Science Working Group](http://datascience.codeforsanfrancisco.org) at [Code for San Francisco](http://www.codeforsanfrancisco.org).  Other DSWG projects can be found at the [main GitHub repo](https://github.com/sfbrigade/data-science-wg).
 
-#### -- Project Status: [Active, On-Hold, Completed]
+This project Is meant to show the flow of data from NiFi -> HDFS -> Hive -> PySpark -> Hbase.
+
+Project Status: Completed
 
 ## Project Intro/Objective
-The purpose of this project is ________. (Describe the main goals of the project and potential civic impact. Limit to a short paragraph, 3-6 Sentences)
-
-### Partner
-* [Name of Partner organization/Government department etc..]
-* Website for partner
-* Partner contact: [Name of Contact], [slack handle of contact if any]
-* If you do not have a partner leave this section out
+The goal of this project is to take a data set and process it through a continuous data pipeline in a big data environment. The first step of the process was to load a dataset into HDFS from NiFi. Next, the data will be loaded into hive then pulled into pyspark  and have machine learning applied to it. Lastly, the metrics of machine learning were to be uploaded and retrieved from HBase. The following will discuss this process, what I tried and any technical issues I ran into.  
 
 ### Methods Used
 * Inferential Statistics
