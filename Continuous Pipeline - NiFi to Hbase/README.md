@@ -2,7 +2,7 @@
 
 This project Is meant to show the flow of data from NiFi -> HDFS -> Hive -> PySpark -> Hbase.
 
-Project Status: Completed
+#### -- Project Status: Completed
 
 ## Project Intro/Objective
 The goal of this project is to take a data set and process it through a continuous data pipeline in a big data environment. The first step of the process was to load a dataset into HDFS from NiFi. Next, the data will be loaded into hive then pulled into pyspark  and have machine learning applied to it. Lastly, the metrics of machine learning were to be uploaded and retrieved from HBase. The following will discuss this process, what I tried and any technical issues I ran into.  
