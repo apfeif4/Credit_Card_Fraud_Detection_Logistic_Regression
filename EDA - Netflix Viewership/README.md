@@ -4,13 +4,7 @@ This project is an example of data exploration in Tableau.
 #### -- Project Status: Completed
 
 ## Project Intro/Objective
-The purpose of this project is ________. (Describe the main goals of the project and potential civic impact. Limit to a short paragraph, 3-6 Sentences)
-
-### Partner
-* [Name of Partner organization/Government department etc..]
-* Website for partner
-* Partner contact: [Name of Contact], [slack handle of contact if any]
-* If you do not have a partner leave this section out
+The goal of this project is to expore Netflix data to find something intersting and tell a story about it. The data comes from three different datasets that will be explored to make connections. In the end a powerpoint presentation is created to give the stakeholders/ Management a call to action for a change that can be made to increase profits.
 
 ### Methods Used
 * Inferential Statistics
