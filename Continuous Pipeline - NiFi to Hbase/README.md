@@ -1,41 +1,89 @@
-## Continuous Pipeline - NiFi Through Hbase
+---
 
-This project Is meant to show the flow of data from NiFi -> HDFS -> Hive -> PySpark -> Hbase.
+# 🔄 Continuous Data Pipeline: NiFi → HDFS → Hive → PySpark → HBase
 
-#### -- Project Status: Completed
+This project demonstrates the design and implementation of a continuous data pipeline in a big data ecosystem, using tools such as Apache NiFi, HDFS, Hive, PySpark, and HBase. It highlights how data can flow from ingestion to predictive analytics and finally to persistent storage for retrieval.
 
-## Project Intro/Objective
-The goal of this project is to take a data set and process it through a continuous data pipeline in a big data environment. The first step of the process was to load a dataset into HDFS from NiFi. Next, the data will be loaded into hive then pulled into pyspark  and have machine learning applied to it. Lastly, the metrics of machine learning were to be uploaded and retrieved from HBase. The following will discuss this process, what I tried and any technical issues I ran into.  
+---
 
-### Methods Used
+## ✅ Project Status
+
+**Completed**
+
+---
+
+## 🎯 Objective
+
+The goal of this project is to build an end-to-end continuous data pipeline in a big data environment. The process involves:
+
+1. Ingesting a dataset into HDFS using Apache NiFi
+2. Loading and querying data with Apache Hive
+3. Performing machine learning using PySpark
+4. Storing and retrieving model metrics in HBase
+
+This pipeline demonstrates a typical real-time or batch data flow often used in enterprise analytics platforms.
+
+---
+
+## 🧪 Methods Used
+
 * Predictive Modeling
+* Data Engineering
+* Performance Optimization
 
+---
 
-### Technologies
-* NiFi
-* HDFS
-* Hive
+## 🧰 Technologies
+
+* Apache NiFi
+* Hadoop HDFS
+* Apache Hive
 * PySpark
-* Hbase
+* Apache HBase
 
+---
 
-## Project Description
-The Data that is used for this project is the Heart Attack data set for the predictive modeling portion. The Data set was shortened and modified from the original found on Kaggle outside of the environment. This is due to the project being completed in a training environment which couldn't handle the full data set.
+## 📄 Project Description
 
-# Challenges/ solutions:
-* I ran the Invoke processor but the data kept flowing. Solution: Run the Invoke Processor one time only. This will load in the full data set.
-* The PySpark session keeps crasing. Solution: This was due to no garbage collection being completed. Add a garbage collector after every couple of steps in the pyspark session to prevnt this issue.
+This project uses a modified **Heart Attack dataset** for predictive modeling. Due to resource limitations in the training environment, the dataset was shortened and pre-processed outside the system. The pipeline performs the following steps:
 
+* **NiFi** handles data ingestion and flow control into HDFS
+* **Hive** structures the data for queryable access
+* **PySpark** processes the data and applies machine learning models
+* **HBase** stores the output metrics for fast access
 
-## Needs of this project
+---
 
-- data exploration/descriptive statistics
-- statistical modeling
-- writeup/reporting
+## 🧩 Challenges & Solutions
 
+* **Issue:** NiFi's InvokeHTTP processor kept looping data
 
-## Getting Started
+  * **Solution:** Configure it to run only once for initial ingestion
+* **Issue:** PySpark session frequently crashed
 
-1. The NiFi Flow that has the build for the processor group is the NiFi_Flow.json
-2. The data that was used can be found in the data folder within this Repo. To save time from converting this to Json, I've included the medicaldata.json file in the main repo.
-3. Screen shots for the pipeline can be found in the write up document or you can follow along from the full terminal text.
+  * **Solution:** Add manual garbage collection steps to prevent memory overload
+
+---
+
+## 📌 Project Requirements
+
+* Data ingestion and cleaning
+* Descriptive statistics
+* Predictive modeling
+* Reporting and pipeline visualization
+
+---
+
+## 🚀 Getting Started
+
+1. Use the `NiFi_Flow.json` file to import the full NiFi processor group.
+2. The dataset used is included in `data/medicaldata.json` (already pre-converted for convenience).
+3. Pipeline screenshots and terminal outputs are included in the accompanying documentation for visual reference.
+
+---
+
+## 📢 Final Notes
+
+This project is a practical demonstration of how data engineering and machine learning workflows can be automated in a distributed environment. The use of HBase for storing model metrics enables scalable and low-latency access for future applications.
+
+---
