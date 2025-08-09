@@ -18,7 +18,7 @@ The model should:
 
 * Analyze credit card usage patterns.
 * Accurately flag potentially fraudulent transactions.
-* Minimize false positives to avoid customer inconvenience.
+* Minimize false positives to avoid customer inconvenience. 
 
 ---
 
